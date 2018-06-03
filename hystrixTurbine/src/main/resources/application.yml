@@ -1,0 +1,18 @@
+eureka:
+  client:
+#    registerWithEureka: false
+    serviceUrl:
+        defaultZone: http://node1:8771/eureka/,http://node2:8772/eureka/
+server:
+  port: 8001
+spring:
+  application:
+    name: hystrixTurbine
+
+
+turbine:
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")
+  appConfig: serviceConsumerByFeign,serviceConsumerByRibbon
+

@@ -1,0 +1,47 @@
+#客户端默认连接8761这个端口，如果不指定，则默认启动是8080端口，则客户端也得改为8080端口。
+server:
+  port: 8771
+
+spring:
+    application:
+      name: eurekaserver
+    profiles: node1
+eureka:
+  instance:
+    hostname: node1
+#    preferIpAddress: true //集群是，不要加这个。
+  server:
+      enableSelfPreservation: false  #关闭自我保护机制，将停掉的服务移除
+      eviction-interval-timer-in-ms: 1000 #每1秒清除一次
+  client:
+    #自身是否注册到eureka服务器
+#    registerWithEureka: true
+#    是否从eureka服务器获取注册信息
+#    fetchRegistry: true
+    #8771这个机器上的服务同步到8772，注册中心上的服务信息是相互同步的
+    serviceUrl:
+      defaultZone: http://node2:8772/eureka/
+
+---
+server:
+  port: 8772
+
+spring:
+    application:
+      name: eurekaserver
+    profiles: node2
+eureka:
+  instance:
+    hostname: node2
+#    preferIpAddress: true
+  server:
+        enableSelfPreservation: false  #关闭自我保护机制，将停掉的服务移除
+        eviction-interval-timer-in-ms: 1000 #每5秒清除一次
+  client:
+    #自身是否注册到eureka服务器serviceUrl
+#    registerWithEureka: true
+#    是否从eureka服务器获取注册信息
+#    fetchRegistry: true
+    #8772这个机器上的服务同步到8771,注册中心上的服务信息是相互同步的
+    serviceUrl:
+      defaultZone: http://node1:8771/eureka/
