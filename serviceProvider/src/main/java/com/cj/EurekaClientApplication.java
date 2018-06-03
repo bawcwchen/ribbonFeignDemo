@@ -28,11 +28,6 @@ public class EurekaClientApplication {
 
     @RequestMapping("/hello")
     public String hello(@RequestParam String name) {
-        //模拟响应时间，ribbon按权重分配请求
-        if ("8762".equals(port)) {
-            for (int i = 0; i < 10000; i++) {
-            }
-        }
         return "Client request param, name:" + name + ",Server port:" + port;
     }
 }

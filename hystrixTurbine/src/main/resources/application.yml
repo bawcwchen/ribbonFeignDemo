@@ -1,6 +1,5 @@
 eureka:
   client:
-#    registerWithEureka: false
     serviceUrl:
         defaultZone: http://node1:8771/eureka/,http://node2:8772/eureka/
 server:
@@ -14,5 +13,5 @@ turbine:
   aggregator:
     clusterConfig: default
   clusterNameExpression: new String("default")
+  # 要监控的应用名，也是注册到注册中心的服务名
   appConfig: serviceConsumerByFeign,serviceConsumerByRibbon
-
